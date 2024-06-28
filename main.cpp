@@ -19,9 +19,10 @@ class BinaryTree {
     public:
         Node* root;
     
-        BinaryTree() { root = NULL; }
-        
-        void insert(Node* root, int value);
+        BinaryTree() { root = NULL; }            //constructor
+
+//function declarations
+        void insert(Node*& root, int value);
         void printPreOrder(Node* root);
         void printInOrder(Node* root);
         void printPostOrder(Node* root);
@@ -45,6 +46,70 @@ Node* BinaryTree::generateNewTree(Node* root) {
     
     return newRoot;
 }
+
+void BinaryTree::insert(Node*& root, int value){            
+    if (root==NULL){                  //creates a root if the tree is empty
+        root=new Node(value);
+        return;
+    }
+    if (root->data==value){            //makes sure there are no duplicates
+        return;
+    }
+    if (value<root->data){            //inserts new node to the left if it's < it's parent
+        if (root->left==NULL){
+            root->left=new Node(value);
+            return;
+        }
+        else {                         
+            insert(root->left, value);
+        }
+    }
+    else {                             //inserts new node to the right if it's > then it's parent
+        if (root->right==NULL){
+            root->right=new Node(value);
+            return;
+        }
+        else {
+            insert(root->right, value);
+        }
+    }
+}
+
+// Pre, In, and Post prrint functions
+void BinaryTree::printPreOrder(Node *root){
+    //center, left, right
+    if (!root){                        //Base case
+        return;
+    }
+    cout<<root->data<<"  ";            //prints root first
+    printPreOrder(root->left);         //traverses left, only goes to the next step after the return is called
+    printPreOrder(root->right);        //then traverses right. After this, that node is done and returns back to the last called node on the stack
+}
+//The same goes for the next 2 print functions but in different orders
+
+void BinaryTree::printInOrder(Node *root){
+    //left, center, right
+    if (!root){
+        return;
+    }
+    printInOrder(root->left);
+    cout<<root->data<<"  ";
+    printInOrder(root->right);    
+}
+
+void BinaryTree::printPostOrder(Node *root){
+    //left, right, center
+    if (!root){
+        return;
+    }    
+    printPostOrder(root->left);
+    printPostOrder(root->right);
+    cout<<root->data<<"  "; 
+}
+
+
+
+
 
 int main() {
     // Seed the random number generator to get a different sequence each time
@@ -88,9 +153,13 @@ int main() {
             }
             case 2: {
                 // Print the tree in preorder, inorder, and postorder
+                cout<<endl<<"Pre-Order: ";
                 tree.printPreOrder(root);
+                cout<<endl<<"In-Orer: ";
                 tree.printInOrder(root);
+                cout<<endl<<"Post-Order: ";
                 tree.printPostOrder(root);
+                cout<<endl<<endl;
                 break;
             }       
             case 3:
@@ -103,10 +172,14 @@ int main() {
                 break;
             case 5: {
                 // Generate new tree with doubled values
-                Node* newTree = tree.generateNewTree(root);
+               Node* newTree = tree.generateNewTree(root);
+                cout<<endl<<"Pre-Order: ";
                 tree.printPreOrder(newTree);
+                cout<<endl<<"In-Orer: ";
                 tree.printInOrder(newTree);
+                cout<<endl<<"Post-Order: ";
                 tree.printPostOrder(newTree);
+                cout<<endl<<endl;
                 break;
             }                
             case 6:
