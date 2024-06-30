@@ -56,26 +56,14 @@ void BinaryTree::insert(Node*& root, int value){
         return;
     }
     if (value<root->data){            //inserts new node to the left if it's < it's parent
-        if (root->left==NULL){
-            root->left=new Node(value);
-            return;
-        }
-        else {                         
-            insert(root->left, value);
-        }
+        insert(root->left, value);
     }
     else {                             //inserts new node to the right if it's > then it's parent
-        if (root->right==NULL){
-            root->right=new Node(value);
-            return;
-        }
-        else {
-            insert(root->right, value);
-        }
+        insert(root->right, value);
     }
 }
 
-// Pre, In, and Post prrint functions
+// Pre, In, and Post print functions
 void BinaryTree::printPreOrder(Node *root){
     //center, left, right
     if (!root){                        //Base case
@@ -109,8 +97,7 @@ void BinaryTree::printPostOrder(Node *root){
 
 
 
-
-
+//MAIN
 int main() {
     // Seed the random number generator to get a different sequence each time
     srand(time(0));
