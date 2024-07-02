@@ -95,7 +95,28 @@ void BinaryTree::printPostOrder(Node *root){
     cout<<root->data<<"  "; 
 }
 
+int BinaryTree::countNodes(Node * root) {
+    //base case
+    if (root == NULL) {
+        return 0;
+    }
 
+    //recursion to count all nodes
+    return (countNodes(root->left) + countNodes(root->right) + 1);
+}
+
+int BinaryTree::countLeaves(Node* root) {
+    //base cases
+    if (root == NULL) {
+        return 0;
+    }
+    else if ((root->left == NULL) && (root->right == NULL)) {           //check if its a leaf
+        return 1;
+    }
+    else {
+        return (countLeaves(root->left) + countLeaves(root->right));    //recursion to count all leaf
+    }
+}
 
 //MAIN
 int main() {
