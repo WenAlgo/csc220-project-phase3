@@ -1,6 +1,5 @@
 #include <iostream>    // Provides cout and cin
 #include <cstdlib>     // Provides NULL, srand, rand
-
 using namespace std;
 
 class Node {
@@ -47,6 +46,7 @@ Node* BinaryTree::generateNewTree(Node* root) {
     return newRoot;
 }
 
+//insert function
 void BinaryTree::insert(Node*& root, int value){            
     if (root==NULL){                  //creates a root if the tree is empty
         root=new Node(value);
@@ -65,18 +65,16 @@ void BinaryTree::insert(Node*& root, int value){
 
 // Pre, In, and Post print functions
 void BinaryTree::printPreOrder(Node *root){
-    //center, left, right
     if (!root){                        //Base case
         return;
     }
-    cout<<root->data<<"  ";            //prints root first
+    cout<<root->data<<"  ";            //prints the root first
     printPreOrder(root->left);         //traverses left, only goes to the next step after the return is called
     printPreOrder(root->right);        //then traverses right. After this, that node is done and returns back to the last called node on the stack
 }
 //The same goes for the next 2 print functions but in different orders
 
 void BinaryTree::printInOrder(Node *root){
-    //left, center, right
     if (!root){
         return;
     }
@@ -86,7 +84,6 @@ void BinaryTree::printInOrder(Node *root){
 }
 
 void BinaryTree::printPostOrder(Node *root){
-    //left, right, center
     if (!root){
         return;
     }    
